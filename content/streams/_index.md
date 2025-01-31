@@ -7,6 +7,8 @@ page_template = "streams-page.html"
 weight = 40
 paginate_by = 12
 
+draft = true
+
 [[extra.schedule]]
 day = "Lunes"
 time = "7:00 PM - 9:00 PM"

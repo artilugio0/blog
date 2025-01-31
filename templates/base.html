@@ -173,7 +173,7 @@
 		</header>
 	{% endblock %}
 
-	{% set root_section = get_section(path="_index.md") %}
+	{% set root_section = get_section(path="_index.md", lang=lang) %}
         <nav class="navbar-collapse">
             <ul>
                 <li><a href="{% if lang != config.default_language %}/{{ lang }}{% endif %}/">Home</a></li>

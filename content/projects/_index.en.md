@@ -6,4 +6,6 @@ page_template = "projects-page.html"
 weight = 20
 
 paginate_by = 12
+
+draft = true
 +++

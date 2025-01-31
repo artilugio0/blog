@@ -2,7 +2,10 @@
 title = "About Me"
 sort_by = "date"
 template = "about.html"
+
 weight = 1000
+
+draft = true
 
 [extra]
 show_with_empty_pages = true

@@ -5,11 +5,9 @@ description = "Aqui podras encontrar mis proyectos, blog posts, streams, videos,
 [extra]
 articles_count = 9
 articles_sections = [
-    "blog",
-    "projects",
-    "videos/math",
-    "videos/bitcoin",
-    "videos/programming",
-    "micro-posts",
+    #"blog",
+    #"projects",
+    #"micro-posts",
+    #"videos",
 ]
 +++

@@ -3,8 +3,11 @@ title = "Streams"
 sort_by = "date"
 template = "streams.html"
 page_template = "streams-page.html"
+
 weight = 40
 paginate_by = 12
+
+draft = true
 
 [[extra.schedule]]
 day = "Monday"
