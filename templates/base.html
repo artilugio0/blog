@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+	body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 5px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+        nav {
+            background-color: #262626;
+            padding: 10px 0;
+            margin-bottom: 40px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+	    flex-direction: row;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .navbar-toggle {
+            display: none;
+            color: #e0e0e0;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+	    }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+		display: none;
+            }
+	    .navbar-toggle {
+	        display: block;
+	    }
+	    .navbar-show {
+	        display: flex;
+	    }
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            color: #ffffff;
+            background-color: #333;
+            transform: scale(1.05);
+            border-radius: 4px;
+        }
+        p {
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .lang-menu ul {
+            display: flex;
+            justify-content: space-evenly;
+            width: 200 px;
+        }
+
+        .lang-menu ul li {
+            display: block;
+        }
+
+        .lang-menu a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.8em;
+        }
+
+        .lang-menu a:hover {
+            color: #ffffff;
+        }
+
+        .language-menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Use Flexbox */
+            justify-content: flex-end; /* Align items to the right */
+            width: 100%; /* Full width to ensure it sticks to the right edge */
+        }
+
+        .language-menu li a {
+            color: #e0e0e0;
+            display: block;
+            text-align: center;
+            padding: 5px;
+            text-decoration: none;
+            font-size: 0.8em;
+        }
+
+        .language-menu li a:hover {
+            color: #ffffff;
+        }
+
+
+        {% block style %}{% endblock %}
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        {% if (page and page.translations | length > 1) or (section and section.translations | length > 1) %}
+                <ul class="language-menu">
+                    {% if page and page.translations | length > 1%}
+                        {% for t in page.translations %}
+                            <li><a href="{{ t.permalink | safe }}">{{ t.lang }}</a></li>
+                        {% endfor %}
+                    {% elif section and section.translations | length > 1 %}
+                        {% for t in section.translations %}
+                            <li><a href="{{ t.permalink | safe }}">{{ t.lang }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+        {% endif %}
+
+	{% block header %}
+		{% if section %}
+			{% set the_section = section %}
+		{% elif page %}
+			{% set the_section = get_section(path=page.ancestors|last) %}
+		{% endif %}
+
+		<header>
+		    <h1>{{ the_section.title }}</h1>
+		    {% if the_section.description %}
+			<p>{{ the_section.description }}
+		    {% endif %}
+		</header>
+	{% endblock %}
+
+	{% set root_section = get_section(path="_index.md") %}
+        <nav class="navbar-collapse">
+            <ul>
+                <li><a href="{% if lang != config.default_language %}/{{ lang }}{% endif %}/">Home</a></li>
+		{% for subsection_path in root_section.subsections %}
+			{% set subsection = get_section(path=subsection_path, lang=lang) %}
+                        {% set pages_count = subsection.pages | length %}
+                        {% if pages_count > 0 or subsection.extra.show_with_empty_pages %}
+                            <li><a href="{{ get_url(path='@/' ~ subsection_path, lang=lang) }}">{{ subsection.title }}</a></li>
+                        {% endif %}
+		{% endfor %}
+            </ul>
+	    <button class="navbar-toggle" onclick="toggleNav()">☰</button>
+        </nav>
+
+      {% block content %}{% endblock %}
+
+        <footer>
+            <p>&copy; {{ now() | date(format="%Y") }} - {{ root_section.title}} </p>
+        </footer>
+
+      {% block scriptend %}{% endblock %}
+      <script>
+        function toggleNav() {
+          document.querySelector('.navbar-collapse ul').classList.toggle('navbar-show');
+	  let toggleButton = document.querySelector('.navbar-toggle');
+	  if (toggleButton.innerHTML != "^") {
+		toggleButton.innerHTML = "^";
+	  } else {
+		toggleButton.innerHTML = "☰"
+	  }
+        }
+      </script>
+</body>
+
+</html>

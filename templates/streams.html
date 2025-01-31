@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block style %}
+.schedule {
+    background: #262626;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+.schedule h2 {
+    color: #ffffff;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    cursor: pointer; /* Cursor changes to pointer to indicate clickable */
+}
+.schedule table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.schedule th, .schedule td {
+    border: 1px solid #666;
+    padding: 10px;
+    text-align: left;
+}
+.schedule th {
+    background: #333;
+}
+
+/* Responsive Table Styles */
+@media screen and (max-width: 600px) {
+    .schedule table, .schedule thead, .schedule tbody, .schedule th, .schedule td, .schedule tr {
+        display: block;
+    }
+    .schedule thead { 
+        display: none; 
+    }
+    .schedule tr {
+        margin-bottom: 15px;
+    }
+    .schedule td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+    .schedule td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: bold;
+        text-align: left;
+    }
+    .schedule td:last-child {
+        border-bottom: 1px solid #444;
+    }
+
+    /* Modified for toggle functionality on mobile */
+    .schedule table {
+        display: none; /* Initially hide the table on mobile */
+    }
+    .schedule.show table {
+        display: block; /* Show when toggled */
+    }
+    .schedule h2::after {
+        content: "▼"; /* Down arrow when closed */
+        float: right;
+    }
+    .schedule.show h2::after {
+        content: "▲"; /* Up arrow when open */
+    }
+}
+{{ macros::pages_grid_style() }}
+{% endblock style %}
+
+{% block content %}
+<section class="schedule">
+    <h2>{{ trans(key="schedule", lang=lang) | capitalize }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ trans(key="day", lang=lang) | capitalize }}</th>
+                <th>{{ trans(key="stream_time", lang=lang) | capitalize }}</th>
+                <th>{{ trans(key="platforms", lang=lang) | capitalize }}</th>
+                <th>{{ trans(key="topics", lang=lang) | capitalize }}</th>
+            </tr>
+        </thead>
+        {% for day in section.extra.schedule %}
+            <tr>
+                <td data-label="Day">{{ day["day"] }}</td>
+                <td data-label="Time (PST)">{{ day["time"] }}</td>
+                <td data-label="Platform">{{ day["platform"] }}</td>
+                <td data-label="Topic">{{ day["topic"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>
+
+{{ macros::pages_grid(show_date=true) }}
+{% endblock content %}
+
+{% block scriptend %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scheduleSection = document.querySelector('.schedule');
+            const scheduleHeader = scheduleSection.querySelector('h2');
+
+            scheduleHeader.addEventListener('click', function() {
+                scheduleSection.classList.toggle('show');
+            });
+        });
+    </script>
+{% endblock scriptend %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block style %}
+.microposts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minmax for card size */
+    gap: 20px;
+}
+.micropost {
+    background-color: #262626;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.micropost:hover {
+    transform: translateY(-5px);
+}
+.micropost-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.micropost-author img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.micropost-author span {
+    font-size: 0.9em;
+    color: #999;
+}
+.micropost-content {
+    font-size: 1em;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+.micropost-meta {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 10px;
+}
+.micropost-links {
+    display: flex;
+    gap: 10px;
+}
+.micropost-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+.micropost-links a:hover {
+    color: #ffffff;
+}
+
+{{ macros::paginator_style() }}
+{% endblock style %}
+
+{% block content %}
+{% if paginator %}
+    {% set using_paginator = true %}
+    {% set pages = paginator.pages %}
+{% elif section.pages %}
+    {% set using_paginator = false %}
+    {% set pages = section.pages %}
+{% else %}
+    {% set using_paginator = false %}
+    {% set pages = [] %}
+{% endif %}
+
+<section class="microposts">
+    {% for post in pages %}
+    <article class="micropost" onclick="location.href='{{ post.permalink | safe }}'">
+            <div>
+                <div class="micropost-author">
+                    <img src="{{ get_url(path=section.path ~ '/image.jpg') }}" alt="{{ section.extra.handle }}">
+                    <span>{{ section.extra.handle }} - {{ post.date }}</span>
+                </div>
+                <p class="micropost-content">{{ post.content | safe }}</p>
+                <div class="micropost-links">
+                    {% if post.extra.x_url %}
+                        <a href="{{ post.extra.x_url }}" target="_blank">X</a>
+                    {% endif %}
+                    {% if post.extra.nostr_url %}
+                        <a href="{{ post.extra.nostr_url }}" target="_blank">Nostr</a>
+                    {% endif %}
+                    {% if post.extra.mastodon_url %}
+                        <a href="{{ post.extra.mastodon_url }}" target="_blank">Mastodon</a>
+                    {% endif %}
+                </div>
+            </div>
+    </article>
+    {% endfor %}
+</section>
+
+{{ macros::paginator_links() }}
+{% endblock content %}

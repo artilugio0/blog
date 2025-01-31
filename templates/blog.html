@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block style %}
+/* Blog Section Styles */
+/* Blog Posts Listing Styles */
+.blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.blog-post-item {
+    background-color: #262626;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px
+}
+.blog-post-item:hover {
+    transform: translateY(-5px);
+}
+.blog-post-item img {
+    width: 200px; /* Limited width */
+    height: auto;
+    border-radius: 4px;
+    margin-right: 20px; /* Space between image and text */
+}
+.blog-post-item .post-content {
+    flex: 1; /* Allow text to take up remaining space */
+}
+.blog-post-item h2 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.blog-post-item p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+.blog-post-item a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+.blog-post-item a:hover {
+    color: #ffffff;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+    .blog-post-item {
+        flex-direction: column; /* Stack image above text */
+    }
+    .blog-post-item img {
+        width: 100%; /* Full width on smaller screens */
+        margin-right: 0; /* No right margin when stacked */
+        margin-bottom: 20px; /* Space below image before text */
+    }
+}
+
+.pagination-blog {
+    text-align: center;
+    margin-top: 20px;
+}
+.pagination-blog a {
+    color: #e0e0e0;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+.pagination-blog a:hover {
+    background-color: #333;
+}
+
+{{ macros::pages_list_style() }}
+{% endblock style %}
+
+
+{% block content %}
+<section>
+{% for page in section.pages %}
+    <article class="blog-post-item">
+          <img src="{{ get_url(path=page.path ~ '/image.jpg') }}" alt="{{ page.title}}">
+          <div class="post-content">
+            <a href="{{ page.permalink | safe }}">
+              <h2>{{ page.title }}</h2>
+            </a>
+            <p>{{ page.description }}</p>
+            <p><small>Posted on {{ page.date | date(format="%b %d, %Y") }}</small></p>
+          </div>
+    </article>
+{% endfor %}
+</section>
+
+{{ macros::pages_list() }}
+
+{% endblock content %}

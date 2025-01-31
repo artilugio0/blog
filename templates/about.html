@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block style %}
+/* About Me Styles */
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.about-image {
+    flex: 1 1 200px;
+    max-width: 300px;
+}
+.about-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+.about-text {
+    flex: 2 1 300px;
+}
+.about-text h2 {
+    color: #ffffff;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+.about-text p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.contact-info {
+    margin-top: 30px;
+}
+.contact-info a {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin-right: 15px;
+}
+.contact-info a:hover {
+    color: #ffffff;
+}
+{% endblock style %}
+
+{% block content %}
+<section class="about-content">
+    <div class="about-image">
+        <img src="/images/about-me-photo.jpg" alt="Artilugio">
+    </div>
+    <div class="about-text">
+        <h2>Artilugio</h2>
+        {{ section.content | safe }}
+        <div class="contact-info">
+            {% if section.extra.email %}
+                <a href="mailto:{{ section.extra.email }}">Email</a>
+            {% endif %}
+            {% if section.extra.x_url %}
+                <a href="{{ section.extra.x_url }}" target="_blank">X</a>
+            {% endif %}
+            {% if section.extra.linkedin_url %}
+                <a href="{{ section.extra.linkedin_url }}" target="_blank">LinkedIn</a>
+            {% endif %}
+            {% if section.extra.github_url %}
+                <a href="{{ section.extra.github_url }}" target="_blank">GitHub</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

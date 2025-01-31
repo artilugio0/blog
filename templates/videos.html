@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block style %}
+.youtube-section {
+    margin-bottom: 40px;
+}
+.toggle-buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.toggle-buttons button {
+    background-color: #333;
+    color: #e0e0e0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.toggle-buttons button.active {
+    background-color: #4a4a4a;
+}
+.toggle-buttons button:hover {
+    background-color: #404040;
+}
+.channel {
+    background-color: #262626;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: none;
+}
+.channel.show {
+    display: block;
+}
+.channel h2 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+.channel h2 a {
+    text-decoration: none;
+    color: #ffffff;
+}
+.video-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.video {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: color 0.3s ease;
+}
+.video:hover {
+    color: #ffffff;
+}
+.video img {
+    width: 120px;
+    height: auto;
+    border-radius: 4px;
+}
+.video-info {
+    flex: 1;
+}
+.video-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+.video-info p {
+    margin: 0;
+    font-size: 0.9em;
+}
+.channel-links {
+    margin-top: 20px;
+}
+.channel-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+.channel-links a:hover {
+    color: #ffffff;
+}
+
+.video-description {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .video-description {
+        display: none;
+    }
+}
+{% endblock style %}
+
+{% block content %}
+<section class="youtube-section">
+        <div class="toggle-buttons">
+        {% for channel_path in section.subsections %}
+            {% set channel_section = get_section(path=channel_path) %}
+            <button class="toggle-button" data-channel="{{ channel_section.title }}">{{ channel_section.title }}</button>
+        {% endfor %}
+    </div>
+
+    {% for channel_path in section.subsections %}
+        {% set channel_section = get_section(path=channel_path) %}
+        <div class="channel show" data-channel="{{ channel_section.title }}">
+            <h2><a href="{{ get_url(path=channel_section.path) }}">{{ channel_section.title }}</a></h2>
+            <div class="video-list">
+            {% for page in channel_section.pages | slice(end=3) %}
+                <a href="{{ page.permalink | safe }}" class="video">
+                    <img src="{{ get_url(path=page.path ~ '/image.jpg') }}" alt="{{ page.title }}">
+                    <div class="video-info">
+                        <h3>{{ page.title }}</h3>
+                        {% if page.description %}
+                            <p class="video-description">{{ page.description }}</p>
+                        {% endif %}
+                        <p>{{ trans(key="date", lang=lang) | capitalize }}: {{ page.date | date(format="%b %d, %Y", lang=lang) }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+            </div>
+            <div class="channel-links">
+                <a href="{{ channel_section.path }}">{{ trans(key="view_all_videos", lang=lang) | capitalize }}</a>
+                <a href="{{ channel_section.extra.url }}">{{ trans(key="visit_channel", lang=lang) | capitalize }}</a>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+{% endblock content %}
+
+{% block scriptend %}
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        const channels = document.querySelectorAll('.channel');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const channel = this.dataset.channel;
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    channels.forEach(channelDiv => {
+                        if (!channelDiv.classList.contains('show')) {
+                            channelDiv.classList.add('show');
+                        }
+                    });
+                    return;
+                }
+
+                // show all
+                channels.forEach(channelDiv => {
+                    if (channelDiv.dataset.channel === channel && !channelDiv.classList.contains('show')) {
+                        channelDiv.classList.add('show');
+                    } else if (channelDiv.dataset.channel !== channel) {
+                        channelDiv.classList.remove('show');
+                    }
+                });
+
+                toggleButtons.forEach(button => button.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+{% endblock scriptend %}

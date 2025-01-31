@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block style %}
+.latest-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 380px)); /* Ensures each column doesn't exceed 400px */
+    gap: 20px;
+    justify-content: center; /* Centers grid items in the main axis */
+}
+.post {
+    background-color: #262626;
+    padding: 15px; /* Slightly reduced padding to fit within 400px */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 400px; /* Ensures the post doesn't exceed 400px */
+}
+.post:hover {
+    transform: translateY(-5px);
+}
+.post h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+.post img {
+    max-width: 100%;  /* Image will not exceed the width of its container */
+    height: auto;     /* Maintains aspect ratio */
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+{{ macros::pages_grid_style() }}
+{% endblock style %}
+
+{% block content %}
+
+{% set articles_count = section.extra.articles_count | default(value=100) %}
+
+{% set_global pages = [] %}
+{% for s in section.extra.articles_sections %}
+    {% set the_section = get_section(path=s ~ "/_index.md", lang=lang) %}
+    {% set_global pages = pages | concat(with=the_section.pages) %}
+{% endfor %}
+{% set pages = pages | sort(attribute="date") | reverse | slice(end=articles_count) %}
+
+{% if pages|length > 0 %}
+    <h2>{{ trans(key="latest_content", lang=lang) }}</h2>
+{% else %}
+    <p>{{ trans(key="no_content_available", lang=lang) }}</p>
+{% endif %}
+{{ macros::pages_grid(pages=pages, show_description=true) }}
+
+{% endblock content %}

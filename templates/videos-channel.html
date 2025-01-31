@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block style %}
+{{ macros::pages_grid_style() }}
+{% endblock style %}
+
+{% block content %}
+{{ macros::pages_grid(show_date=true) }}
+{% endblock content %}

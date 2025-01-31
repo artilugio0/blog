@@ -1,0 +1,101 @@
+# The URL the site will be built for
+base_url = "https://example.com"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+default_language = "es"
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+
+[languages.en]
+taxonomies = [
+    {name = "topic"},
+    {name = "platform"},
+]
+
+[languages.en.translations]
+# general
+topics = "topics"
+platforms = "platforms"
+date = "date"
+overview = "overview"
+
+# home
+latest_content = "Latest content"
+no_content_available = "No content available yet"
+
+# projects
+authors = "authors"
+unknown = "unknown"
+
+# projects
+key_features = "key features"
+status = "status"
+tech_stack = "tech stack"
+challenges = "challenges"
+live_demo = "live demo"
+documentation = "documentation"
+github_repository = "GitHub repository"
+
+# videos
+key_points = "key points"
+additional_resources = "additional resources"
+view_all_videos = "view all videos"
+visit_channel = "visit channel"
+
+# streams
+schedule = "schedule"
+day = "day"
+stream_time = "time"
+
+[languages.es]
+taxonomies = [
+    {name = "topic"},
+    {name = "platform"},
+]
+
+[languages.es.translations]
+# general
+topics = "temas"
+platforms = "plataformas"
+date = "fecha"
+overview = "resumen"
+
+# home
+latest_content = "Ultimas novedades"
+no_content_available = "Aun no hay contenido para mostrar"
+
+# projects
+authors = "autores"
+unknown = "anonimo"
+
+# proyectos
+key_features = "Funcionalidades principales"
+status = "estado"
+tech_stack = "tecnologias"
+challenges = "desafios"
+live_demo = "demo"
+documentation = "documentacion"
+github_repository = "GitHub"
+
+# videos
+key_points = "puntos clave"
+additional_resources = "recursos adicionales"
+view_all_videos = "Todos los videos"
+visit_channel = "Ir al canal"
+
+# streams
+schedule = "calendario"
+day = "dia"
+stream_time = "horario"
+
+[extra]
+# Put all your custom variables here

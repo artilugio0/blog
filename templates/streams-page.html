@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block style %}
+.stream-details {
+    margin-bottom: 30px;
+}
+.stream-details h2 {
+    color: #ffffff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+.stream-thumbnail {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.stream-info p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.stream-info a {
+    color: #e0e0e0; /* Matches the theme */
+    text-decoration: none;
+}
+.stream-info a:hover {
+    color: #ffffff; /* Lightens on hover for better interaction feedback */
+}
+.video-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.resources {
+    background-color: #262626;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.resources h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+.resources ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.resources li {
+    margin-bottom: 10px;
+}
+.resources a {
+    color: #e0e0e0; /* Matches the theme */
+    text-decoration: none;
+}
+.resources a:hover {
+    color: #ffffff; /* Lightens on hover for better interaction feedback */
+}
+.comments-section {
+    margin-top: 20px;
+}
+.social-sharing {
+    margin-top: 30px;
+}
+.social-sharing a {
+    color: #e0e0e0; /* Matches the theme */
+    text-decoration: none;
+    margin-right: 10px;
+}
+.social-sharing a:hover {
+    color: #ffffff; /* Lightens on hover for better interaction feedback */
+}
+{% endblock style %}
+
+{% block content %}
+<section class="stream-details">
+    <div class="stream-info">
+        <h2>{{ page.title }}</h2>
+        <p><strong>{{ trans(key="date", lang=lang) | capitalize }}:</strong> {{ page.date | date(format="%Y-%m-%d") }}
+        <p><strong>{{ trans(key="platforms", lang=lang) | capitalize }}:</strong> 
+            {% for platform in page.taxonomies.platform %}
+                <a href="{{ get_url(path="@/streams/_index.md") }}" target="_blank">{{ platform }}</a>
+            {% endfor %}
+        </p>
+        <p><strong>{{ trans(key="overview", lang=lang) | capitalize }}:</strong> {{ page.description }}</p>
+    </div>
+
+    <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/{{ page.extra.video_id }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="resources">
+        <h3>{{ trans(key="additional_resources", lang=lang) | capitalize }}</h3>
+        <ul>
+        {% for resource in page.extra.resources %}
+            <li><a href="{{ resource.url }}" target="_blank">{{ resource.name }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock content %}

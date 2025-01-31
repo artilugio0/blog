@@ -1,0 +1,340 @@
+{% macro paginator_style(class_prefix="") %}
+    {% set paginator_links_class = "paginator_links" %}
+    {% if class_prefix %}
+        {% set paginator_links_class = class_prefix ~ "-" ~ paginator_links_class %}
+    {% endif %}
+
+    .{{ paginator_links_class }} {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .{{ paginator_links_class }} a {
+        color: #e0e0e0;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background 0.3s;
+    }
+    .{{ paginator_links_class }} a:hover {
+        background-color: #333;
+    }
+    .{{ paginator_links_class }}-active {
+        background-color: #333;
+    }
+{% endmacro paginator_style %}
+
+{% macro pages_grid_style(class_prefix="") %}
+    {% set pages_grid_class = "pages-grid" %}
+    {% if class_prefix %}
+        {% set pages_grid_class = class_prefix ~ "-" ~ pages_grid_class %}
+    {% endif %}
+
+    .{{ pages_grid_class }} {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 380px)); /* Ensures each column doesn't exceed 400px */
+        gap: 20px;
+        justify-content: center; /* Centers grid items in the main axis */
+    }
+
+    .{{ pages_grid_class }}-item {
+        background-color: #262626;
+        padding: 15px; /* Slightly reduced padding to fit within 400px */
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        max-width: 400px;
+    }
+
+    .{{ pages_grid_class }}-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .{{ pages_grid_class }}-item a {
+        text-decoration: none;
+    }
+
+    .{{ pages_grid_class }}-item h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .{{ pages_grid_class }}-item img {
+        max-width: 100%;  /* Image will not exceed the width of its container */
+        height: auto;     /* Maintains aspect ratio */
+        border-radius: 4px;
+        margin-bottom: 10px;
+        display: block;
+        margin-left: auto; 
+        margin-right: auto;
+    }
+
+    {% set microposts_grid_class = "microposts-grid" %}
+    {% if class_prefix %}
+        {% set microposts_grid_class = class_prefix ~ "-" ~ microposts_grid_class %}
+    {% endif %}
+
+    .{{ microposts_grid_class }} {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minmax for card size */
+        gap: 20px;
+    }
+    .{{ microposts_grid_class }} {
+        background-color: #262626;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    .{{ microposts_grid_class }}:hover {
+        transform: translateY(-5px);
+    }
+    .{{ microposts_grid_class }}-author {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .{{ microposts_grid_class }}-author img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .{{ microposts_grid_class }}-author span {
+        font-size: 0.9em;
+        color: #999;
+    }
+    .{{ microposts_grid_class }}-content {
+        font-size: 1em;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+    .{{ microposts_grid_class }}-meta {
+        font-size: 0.8em;
+        color: #666;
+        margin-bottom: 10px;
+    }
+    .{{ microposts_grid_class }}-links {
+        display: flex;
+        gap: 10px;
+    }
+    .{{ microposts_grid_class }}-links a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 0.8em;
+    }
+    .{{ microposts_grid_class }}-links a:hover {
+        color: #ffffff;
+    }
+
+    {{ self::paginator_style(class_prefix=class_prefix) }}
+{% endmacro page_grid_style %}
+
+{% macro pages_list_style(class_prefix="") %}
+    {% set pages_list_class = "pages-list" %}
+    {% if class_prefix %}
+        {% set pages_list_class = class_prefix ~ "-" ~ pages_list_class %}
+    {% endif %}
+
+    .{{ pages_list_class }}-item {
+        background-color: #262626;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px
+    }
+    .{{ pages_list_class }}-item:hover {
+        transform: translateY(-5px);
+    }
+    .{{ pages_list_class }}-item img {
+        width: 200px; /* Limited width */
+        height: auto;
+        border-radius: 4px;
+        margin-right: 20px; /* Space between image and text */
+    }
+    .{{ pages_list_class }}-item .post-content {
+        flex: 1; /* Allow text to take up remaining space */
+    }
+    .{{ pages_list_class }}-item h2 {
+        color: #ffffff;
+        font-size: 1.5em;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .{{ pages_list_class }}-item p {
+        font-size: 1.1em;
+        line-height: 1.6;
+    }
+    .{{ pages_list_class }}-item a {
+        color: #e0e0e0;
+        text-decoration: none;
+    }
+    .{{ pages_list_class }}-item a:hover {
+        color: #ffffff;
+    }
+
+    /* Responsive design for smaller screens */
+    @media screen and (max-width: 768px) {
+        .{{ pages_list_class }}-item {
+            flex-direction: column; /* Stack image above text */
+        }
+        .{{ pages_list_class }}-item img {
+            width: 100%; /* Full width on smaller screens */
+            margin-right: 0; /* No right margin when stacked */
+            margin-bottom: 20px; /* Space below image before text */
+        }
+    }
+
+    {{ self::paginator_style(class_prefix=class_prefix) }}
+{% endmacro page_grid_style %}
+
+{% macro paginator_links(class_prefix="") %}
+    {% set paginator_links_class = "paginator_links" %}
+    {% if class_prefix %}
+        {% set paginator_links_class = class_prefix ~ "-" ~ paginator_links_class %}
+    {% endif %}
+
+    {% if paginator and paginator.number_pagers > 1 %}
+        <div class="{{ paginator_links_class }}">
+            <a href="{{ paginator.first }}">&laquo;</a>
+            {% for i in range(start=1, end=paginator.number_pagers+1) %}
+                {% if i != paginator.current_index %}
+                    <a href="{{ paginator.base_url ~ i }}">{{ i }}</a>
+                {% else %}
+                    <a class="{{ paginator_links_class }}-active" href="#">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            <a href="{{ paginator.last }}">&raquo;</a>
+        </div>
+    {% endif %}
+{% endmacro paginator_links %}
+
+{% macro pages_grid(pages="", show_description=false, show_date=false, class_prefix="") %}
+    {% if not pages %}
+        {% if paginator %}
+            {% set using_paginator = true %}
+            {% set pages = paginator.pages %}
+        {% elif section.pages %}
+            {% set using_paginator = false %}
+            {% set pages = section.pages %}
+        {% else %}
+            {% set using_paginator = false %}
+            {% set pages = [] %}
+        {% endif %}
+    {% endif %}
+
+    {% set pages_grid_class = "pages-grid" %}
+    {% if class_prefix %}
+        {% set pages_grid_class = class_prefix ~ "-" ~ pages_grid_class %}
+    {% endif %}
+
+    <section class="{{ pages_grid_class }}">
+        {% for page in pages %}
+            {{ self::page_card(
+                page=page,
+                show_description=show_description,
+                show_date=show_date,
+                class_prefix=class_prefix,
+            ) }}
+        {% endfor %}
+    </section>
+
+    {{ self::paginator_links() }}
+{% endmacro pages_grid %}
+
+{% macro pages_list(pages="", class_prefix="") %}
+    {% if paginator %}
+        {% set using_paginator = true %}
+        {% set pages = paginator.pages %}
+    {% elif section.pages %}
+        {% set using_paginator = false %}
+        {% set pages = section.pages %}
+    {% else %}
+        {% set using_paginator = false %}
+        {% set pages = [] %}
+    {% endif %}
+
+    {% set pages_list_class = "pages-list" %}
+    {% if class_prefix %}
+        {% set pages_list_class = class_prefix ~ "-" ~ pages_list_class %}
+    {% endif %}
+
+    <section>
+    {% for page in pages %}
+        <article class="{{ pages_list_class }}-item">
+              <img src="{{ get_url(path=page.path ~ '/image.jpg') }}" alt="{{ page.title}}">
+              <div class="post-content">
+                <a href="{{ page.permalink | safe }}">
+                  <h2>{{ page.title }}</h2>
+                </a>
+                <p>{{ page.description }}</p>
+                <p><small>Posted on {{ page.date | date(format="%b %d, %Y") }}</small></p>
+              </div>
+        </article>
+    {% endfor %}
+    </section>
+
+    {{ self::paginator_links() }}
+{% endmacro pages_list %}
+
+
+{% macro page_card(page, show_description, show_date, class_prefix="") %}
+    {% set pages_grid_class = "pages-grid" %}
+    {% if class_prefix %}
+        {% set pages_grid_class = class_prefix ~ "-" ~ pages_grid_class %}
+    {% endif %}
+
+    {% if page.taxonomies["platform"] and (
+        page.taxonomies["platform"] is containing("x") or
+        page.taxonomies["platform"] is containing("nost") or
+        page.taxonomies["platform"] is containing("mastodon")) %}
+            {{ self::micropost_card(micropost=page) }}
+    {% else %}
+        <article class="{{ pages_grid_class }}-item" onclick="location.href='{{ page.permalink | safe }}'">
+            <img src="{{ get_url(path=page.path ~ '/image.jpg') }}" alt="{{ page.title }}">
+            <a href="{{ page.permalink | safe }}">
+              <h3>{{ page.title }}</h3>
+            </a>
+            {% if show_description %}
+                <p>{{ page.description }}</p>
+            {% endif %}
+
+            {% if show_date %}
+                <p>{{ page.date | date(format="%b %d, %Y") }}</p>
+            {% endif %}
+        </article>
+    {% endif %}
+{% endmacro pages_list %}
+
+{% macro micropost_card(micropost) %}
+    {% set pages_grid_class = "microposts-grid" %}
+    {% if class_prefix %}
+        {% set pages_grid_class = class_prefix ~ "-" ~ pages_grid_class %}
+    {% endif %}
+
+    {% set section_path = micropost.ancestors | last %}
+    {% set section = get_section(path=section_path) %}
+
+    <article class="{{ pages_grid_class }}" onclick="location.href='{{ micropost.permalink | safe }}'">
+        <div>
+            <div class="{{ pages_grid_class}}-author">
+                <img src="{{ get_url(path=section.path ~ '/image.jpg') }}" alt="{{ section.extra.handle }}">
+                <span>{{ section.extra.handle }} - {{ micropost.date }}</span>
+            </div>
+            <p class="{{ pages_grid_class}}-content">{{ micropost.content | safe }}</p>
+            <div class="{{ pages_grid_class}}-links">
+                {% if micropost.extra.x_url %}
+                    <a href="{{ micropost.extra.x_url }}" target="_blank">X</a>
+                {% endif %}
+                {% if micropost.extra.nostr_url %}
+                    <a href="{{ micropost.extra.nostr_url }}" target="_blank">Nostr</a>
+                {% endif %}
+                {% if micropost.extra.mastodon_url %}
+                    <a href="{{ micropost.extra.mastodon_url }}" target="_blank">Mastodon</a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+{% endmacro pages_list %}
