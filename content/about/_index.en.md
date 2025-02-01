@@ -11,8 +11,11 @@ email = "artilugio0@proton.me"
 x_url = "https://x.com/artilugio0"
 github_url = "https://github.com/artilugio0"
 +++
-Hi there! I'm [Your Name], a passionate [your profession/role] with a keen interest in [your areas of interest or expertise]. I've been involved in the tech community for [number] years, where I've honed my skills in [list some skills or technologies].</p>
 
-My journey started with [brief background story or how you got into your field], which led me to explore various facets of [your field]. I love sharing my knowledge through my blog, streams, and YouTube videos, aiming to make complex topics accessible to everyone.</p>
+Hello! I am Artilugio, a passionate programmer with a keen interest in security, mathematics, and cryptography. I have been involved in the tech community professionally for over 15 years, where I have developed my skills in backend development, application security, and cloud environments, cryptography, and infrastructure.
 
-When I'm not coding or creating content, I enjoy [list some hobbies or interests]. I believe in [mention a philosophy or belief about tech, learning, or community].</p>
+I love sharing my knowledge, which is why my aim is to use my blog, streams, and videos to make complex topics accessible to everyone.
+
+When I'm not coding or learning, I enjoy playing the guitar, exercising, and reading.
+
+I'm always interested in discussing any tech-related topic and eager to learn about new subjects.

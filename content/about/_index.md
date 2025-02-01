@@ -5,7 +5,7 @@ template = "about.html"
 
 weight = 1000
 
-draft = true
+draft = false
 
 [extra]
 show_with_empty_pages = true
@@ -14,8 +14,10 @@ x_url = "https://x.com/artilugio0"
 github_url = "https://github.com/artilugio0"
 +++
 
-¡Hola! Soy [Tu Nombre], un apasionado [tu profesión/rol] con un gran interés en [tus áreas de interés o expertise]. He estado involucrado en la comunidad tecnológica durante [número] años, donde he perfeccionado mis habilidades en [enumera algunas habilidades o tecnologías].</p>
+¡Hola! Soy Artilugio, un apasionado programador con un gran interés en seguridad, matemáticas y criptografía. He estado involucrado en la comunidad tecnológica profesionalmente durante más de 15 años, tiempo en el cual he desarrollado mis habilidades en desarrollo backend, seguridad de aplicaciones y entornos cloud, criptografía e infraestructura.
 
-Mi viaje comenzó con [breve historia de fondo o cómo te metiste en tu campo], lo cual me llevó a explorar diversos aspectos de [tu campo]. Me encanta compartir mi conocimiento a través de mi blog, streams y videos de YouTube, con el objetivo de hacer que temas complejos sean accesibles para todos.</p>
+Me encanta compartir mi conocimiento, por eso mi objetivo es usar mi blog, streams y videos para hacer que temas complejos sean accesibles para todos.
 
-Cuando no estoy programando o creando contenido, disfruto [enumera algunos pasatiempos o intereses]. Creo en [menciona una filosofía o creencia sobre tecnología, aprendizaje o comunidad].</p>
+Cuando no estoy programando o aprendiendo, disfruto de tocar la guitarra, ejercitar y leer.
+
+Siempre estoy interesado en charlar sobre cualquier tema de tecnología y ansioso por aprender sobre nuevos temas.
