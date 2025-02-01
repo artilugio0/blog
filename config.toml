@@ -67,20 +67,20 @@ date = "fecha"
 overview = "resumen"
 
 # home
-latest_content = "Ultimas novedades"
-no_content_available = "Aun no hay contenido para mostrar"
+latest_content = "Últimas novedades"
+no_content_available = "Aún no hay contenido para mostrar"
 
 # projects
 authors = "autores"
-unknown = "anonimo"
+unknown = "anónimo"
 
 # proyectos
 key_features = "Funcionalidades principales"
 status = "estado"
-tech_stack = "tecnologias"
-challenges = "desafios"
+tech_stack = "tecnologías"
+challenges = "desafíos"
 live_demo = "demo"
-documentation = "documentacion"
+documentation = "documentación"
 github_repository = "GitHub"
 
 # videos
@@ -91,8 +91,5 @@ visit_channel = "Ir al canal"
 
 # streams
 schedule = "calendario"
-day = "dia"
+day = "día"
 stream_time = "horario"
-
-[extra]
-# Put all your custom variables here
