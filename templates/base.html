@@ -153,11 +153,11 @@
         {% if (page and page.translations | length > 1) or (section and section.translations | length > 1) %}
                 <ul class="language-menu">
                     {% if page and page.translations | length > 1%}
-                        {% for t in page.translations %}
+                        {% for t in page.translations | sort(attribute="lang") %}
                             <li><a href="{{ t.permalink | safe }}">{{ t.lang }}</a></li>
                         {% endfor %}
                     {% elif section and section.translations | length > 1 %}
-                        {% for t in section.translations %}
+                        {% for t in section.translations | sort(attribute="lang") %}
                             <li><a href="{{ t.permalink | safe }}">{{ t.lang }}</a></li>
                         {% endfor %}
                     {% endif %}
