@@ -49,7 +49,9 @@
     {% endif %}
 
     {% set the_section = get_section(path=s) %}
-    {% set_global pages = pages | concat(with=the_section.pages) %}
+    {% set section_pages = the_section.pages
+        | slice(end=section.extra.max_articles_per_section | default(value=the_section.pages | length)) %}
+    {% set_global pages = pages | concat(with=section_pages) %}
 {% endfor %}
 
 {% set pages = pages | sort(attribute="date") | reverse | slice(end=articles_count) %}

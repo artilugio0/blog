@@ -5,7 +5,8 @@ description = "Aquí podrás encontrar mis proyectos, blog posts, streams, video
 draft = false
 
 [extra]
-articles_count = 9
+articles_count = 12
+max_articles_per_section = 3
 exclude_pages_from = [
     "streams/_index.md",
 ]
