@@ -4,9 +4,11 @@ date = "2025-02-01"
 draft = true
 
 [taxonomies]
-platform = ["x"]
+platform = ["x", "nostr", "mastodon"]
 
 [extra]
-x_url = "https://x.com/artilugio0/status/TWEET_ID"
+x_url = ""
+nostr_url = ""
+mastodon_url = ""
 +++
 The content goes here
