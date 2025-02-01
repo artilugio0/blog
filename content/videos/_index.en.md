@@ -7,6 +7,8 @@ page_template = "videos-page.html"
 weight = 30
 paginate_by = 12
 
+draft = false
+
 [extra]
 show_with_empty_pages = true
 +++
