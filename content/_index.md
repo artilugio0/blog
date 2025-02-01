@@ -4,10 +4,7 @@ description = "Aqui podras encontrar mis proyectos, blog posts, streams, videos,
 
 [extra]
 articles_count = 9
-articles_sections = [
-    #"blog",
-    #"projects",
-    #"micro-posts",
-    #"videos",
+exclude_pages_from = [
+    "streams/_index.md",
 ]
 +++

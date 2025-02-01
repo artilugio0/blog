@@ -42,10 +42,16 @@
 {% set articles_count = section.extra.articles_count | default(value=100) %}
 
 {% set_global pages = [] %}
-{% for s in section.extra.articles_sections %}
-    {% set the_section = get_section(path=s ~ "/_index.md", lang=lang) %}
+
+{% for s in section.subsections %}
+    {% if section.extra.exclude_pages_from and section.extra.exclude_pages_from is containing(s) %}
+        {% continue %}
+    {% endif %}
+
+    {% set the_section = get_section(path=s, lang=lang) %}
     {% set_global pages = pages | concat(with=the_section.pages) %}
 {% endfor %}
+
 {% set pages = pages | sort(attribute="date") | reverse | slice(end=articles_count) %}
 
 {% if pages|length > 0 %}

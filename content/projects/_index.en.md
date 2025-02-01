@@ -7,5 +7,5 @@ weight = 20
 
 paginate_by = 12
 
-draft = true
+draft = false
 +++
