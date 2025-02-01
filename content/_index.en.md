@@ -4,10 +4,7 @@ description = "Here you can find my projects, blog posts, Twitch streams, YouTub
 
 [extra]
 articles_count = 9
-articles_sections = [
-    #"blog",
-    #"projects",
-    #"micro-posts",
-    #"videos",
+exclude_pages_from = [
+    "streams/_index.md",
 ]
 +++

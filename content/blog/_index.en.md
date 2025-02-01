@@ -6,6 +6,4 @@ page_template = "blog-page.html"
 
 weight = 10
 paginate_by = 12
-
-draft = true
 +++

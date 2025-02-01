@@ -48,7 +48,7 @@
         {% continue %}
     {% endif %}
 
-    {% set the_section = get_section(path=s, lang=lang) %}
+    {% set the_section = get_section(path=s) %}
     {% set_global pages = pages | concat(with=the_section.pages) %}
 {% endfor %}
 

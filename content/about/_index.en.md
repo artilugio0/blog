@@ -5,8 +5,6 @@ template = "about.html"
 
 weight = 1000
 
-draft = true
-
 [extra]
 show_with_empty_pages = true
 email = "artilugio0@proton.me"
