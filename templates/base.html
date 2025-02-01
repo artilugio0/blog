@@ -3,7 +3,7 @@
 
 <head>
   <style>
-	body {
+        body {
             background-color: #1a1a1a;
             color: #e0e0e0;
             font-family: 'Roboto', sans-serif;
@@ -31,7 +31,7 @@
             border-radius: 4px;
             display: flex;
             justify-content: center;
-	    flex-direction: row;
+            flex-direction: row;
         }
         nav ul {
             list-style-type: none;
@@ -54,18 +54,18 @@
         @media (max-width: 600px) {
             nav {
                 flex-direction: column;
-	    }
+            }
             nav ul {
                 flex-direction: column;
                 align-items: center;
-		display: none;
+                display: none;
             }
-	    .navbar-toggle {
-	        display: block;
-	    }
-	    .navbar-show {
-	        display: flex;
-	    }
+            .navbar-toggle {
+                display: block;
+            }
+            .navbar-show {
+                display: flex;
+            }
         }
         nav a {
             color: #e0e0e0;
@@ -139,7 +139,13 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Blog</title>
+    {% set_global title = "" %}
+    {% if section %}
+        {% set_global title = section.title %}
+    {% elif page %}
+        {% set_global title = page.title %}
+    {% endif %}
+    <title>{{ section.title }}</title>
 </head>
 
 <body>
@@ -158,34 +164,34 @@
                 </ul>
         {% endif %}
 
-	{% block header %}
-		{% if section %}
-			{% set the_section = section %}
-		{% elif page %}
-			{% set the_section = get_section(path=page.ancestors|last) %}
-		{% endif %}
+        {% block header %}
+                {% if section %}
+                        {% set the_section = section %}
+                {% elif page %}
+                        {% set the_section = get_section(path=page.ancestors|last) %}
+                {% endif %}
 
-		<header>
-		    <h1>{{ the_section.title }}</h1>
-		    {% if the_section.description %}
-			<p>{{ the_section.description }}
-		    {% endif %}
-		</header>
-	{% endblock %}
+                <header>
+                    <h1>{{ the_section.title }}</h1>
+                    {% if the_section.description %}
+                        <p>{{ the_section.description }}
+                    {% endif %}
+                </header>
+        {% endblock %}
 
-	{% set root_section = get_section(path="_index.md", lang=lang) %}
+        {% set root_section = get_section(path="_index.md", lang=lang) %}
         <nav class="navbar-collapse">
             <ul>
                 <li><a href="{% if lang != config.default_language %}/{{ lang }}{% endif %}/">Home</a></li>
-		{% for subsection_path in root_section.subsections %}
-			{% set subsection = get_section(path=subsection_path, lang=lang) %}
+                {% for subsection_path in root_section.subsections %}
+                        {% set subsection = get_section(path=subsection_path, lang=lang) %}
                         {% set pages_count = subsection.pages | length %}
                         {% if pages_count > 0 or subsection.extra.show_with_empty_pages %}
                             <li><a href="{{ get_url(path='@/' ~ subsection_path, lang=lang) }}">{{ subsection.title }}</a></li>
                         {% endif %}
-		{% endfor %}
+                {% endfor %}
             </ul>
-	    <button class="navbar-toggle" onclick="toggleNav()">☰</button>
+            <button class="navbar-toggle" onclick="toggleNav()">☰</button>
         </nav>
 
       {% block content %}{% endblock %}
@@ -198,12 +204,12 @@
       <script>
         function toggleNav() {
           document.querySelector('.navbar-collapse ul').classList.toggle('navbar-show');
-	  let toggleButton = document.querySelector('.navbar-toggle');
-	  if (toggleButton.innerHTML != "^") {
-		toggleButton.innerHTML = "^";
-	  } else {
-		toggleButton.innerHTML = "☰"
-	  }
+          let toggleButton = document.querySelector('.navbar-toggle');
+          if (toggleButton.innerHTML != "^") {
+                toggleButton.innerHTML = "^";
+          } else {
+                toggleButton.innerHTML = "☰"
+          }
         }
       </script>
 </body>
