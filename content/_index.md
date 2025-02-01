@@ -1,6 +1,6 @@
 +++
 title = "Artilugio"
-description = "Aqui podras encontrar mis proyectos, blog posts, streams, videos, tweets y cualquier otra cosa que quiera compartir"
+description = "Aquí podrás encontrar mis proyectos, blog posts, streams, videos, tweets y cualquier otra cosa que quiera compartir"
 
 draft = false
 
